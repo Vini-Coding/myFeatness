@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
 import 'package:myfeatness/app/features/home/ui/home_page.dart';
 import 'package:myfeatness/app/features/intro/ui/intro_page.dart';
 
@@ -20,6 +21,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: isFirstEntry ? IntroPage.routeName : HomePage.routeName,
       routes: {
         IntroPage.routeName: (context) => const IntroPage(),
+        HomePage.routeName: (context) => const FormsPage(),
         HomePage.routeName: (context) => const HomePage(),
       },
     );
