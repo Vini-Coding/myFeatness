@@ -18,7 +18,6 @@ class IntroPageWidget extends StatefulWidget {
 class _IntroPageWidgetState extends State<IntroPageWidget> {
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Center(
@@ -28,15 +27,26 @@ class _IntroPageWidgetState extends State<IntroPageWidget> {
             children: [
               Text(
                 widget.title,
-                style: textTheme.displayLarge,
+                style: const TextStyle(
+                  fontFamily: 'Staatliches',
+                  fontSize: 45,
+                  color: Color(0xFFFFFFFF),
+                ),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 50),
               Image(
                 image: AssetImage(widget.assetImage),
               ),
+              const SizedBox(height: 50),
               Text(
                 widget.description,
-                style: textTheme.bodyMedium,
+                style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFFFFFFF),
+                ),
                 textAlign: TextAlign.center,
               ),
             ],

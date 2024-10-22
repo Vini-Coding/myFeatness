@@ -22,5 +22,11 @@ class IntroStore extends ValueNotifier<PageController> {
       description:
           "Insira dados como peso, altura, idade, gênero, objetivo, etc. e confira quantas calorias precisa ingerir diariamente.",
     ),
+    Intro(
+      title: "APRENDA MAIS E MELHORE SUA FORMA",
+      assetImage: "assets/vectors/introview3.png",
+      description:
+          "Leia nossos artigos recomendados e utilize a informação do seu resultado para melhorar na sua vida Fitness.",
+    ),
   ];
 }

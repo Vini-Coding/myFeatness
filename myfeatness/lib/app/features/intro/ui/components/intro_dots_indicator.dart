@@ -9,13 +9,12 @@ class IntroDotsIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: isActive ? 20 : 8,
       width: 8,
       decoration: BoxDecoration(
-        color: isActive ? colorScheme.primary : colorScheme.primary.withOpacity(0.4),
+        color: isActive ? const Color(0xffFF6A6A) : const Color(0xffFF6A6A).withOpacity(0.4),
         borderRadius: BorderRadius.circular(10),
       ),
     );

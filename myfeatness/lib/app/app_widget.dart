@@ -3,7 +3,11 @@ import 'package:myfeatness/app/features/home/ui/home_page.dart';
 import 'package:myfeatness/app/features/intro/ui/intro_page.dart';
 
 class AppWidget extends StatelessWidget {
-  const AppWidget({super.key});
+  const AppWidget({
+    super.key,
+    required this.isFirstEntry,
+  });
+  final bool isFirstEntry;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +17,11 @@ class AppWidget extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
+      initialRoute: isFirstEntry ? IntroPage.routeName : HomePage.routeName,
       routes: {
         IntroPage.routeName: (context) => const IntroPage(),
         HomePage.routeName: (context) => const HomePage(),
       },
-      home: const HomePage(),
     );
   }
 }

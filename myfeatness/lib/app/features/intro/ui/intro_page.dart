@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
 import 'package:myfeatness/app/features/home/ui/home_page.dart';
 import 'package:myfeatness/app/features/intro/store/intro_store.dart';
 import 'package:myfeatness/app/features/intro/ui/components/intro_dots_indicator.dart';
@@ -17,10 +17,7 @@ class _IntroPageState extends State<IntroPage> {
   IntroStore store = IntroStore();
 
   Future<void> goToHome() async {
-    // SharedPreferences preferences =
-    //     Injector.appInstance.get<SharedPreferences>();
-    // preferences.setBool("isFirstEntry", false);
-    // Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+    Navigator.of(context).pushReplacementNamed(HomePage.routeName);
   }
 
   @override
@@ -31,8 +28,8 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      backgroundColor: const Color(0xFF1D2043),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: store,
@@ -62,25 +59,16 @@ class _IntroPageState extends State<IntroPage> {
                         vertical: 20,
                       ),
                       child: Visibility(
-                        visible: pageIndex != 1,
+                        visible: pageIndex != 2,
                         replacement: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
-                                child: ElevatedButton(
-                                  onPressed: goToHome,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      "CALCULAR",
-                                      style: textTheme.displaySmall!.copyWith(
-                                        //    color: colorScheme.background,
-                                        fontSize: 35,
-                                      ),
-                                    ),
-                                  ),
+                                child: GeneralTextButtonWidget(
+                                  onTap: goToHome,
+                                  text: 'COMEÇAR',
                                 ),
                               ),
                             ],
@@ -91,9 +79,14 @@ class _IntroPageState extends State<IntroPage> {
                             const SizedBox(width: 20),
                             InkWell(
                               onTap: goToHome,
-                              child: Text(
+                              child: const Text(
                                 "Pular",
-                                style: textTheme.bodySmall,
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xffFF6A6A),
+                                ),
                               ),
                             ),
                             const Expanded(
@@ -111,14 +104,22 @@ class _IntroPageState extends State<IntroPage> {
                             const Expanded(
                               child: SizedBox(),
                             ),
-                            ElevatedButton(
-                              onPressed: () {
+                            InkWell(
+                              onTap: () {
                                 pagestore.nextPage(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.ease,
                                 );
                               },
-                              child: const FaIcon(FontAwesomeIcons.arrowRight),
+                              child: const Text(
+                                "Próximo",
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xffFF6A6A),
+                                ),
+                              ),
                             ),
                             const SizedBox(width: 20),
                           ],
