@@ -3,6 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:myfeatness/app/features/forms/model/user_profile.dart';
 
 class FormsProvider extends ChangeNotifier {
+  FormsProvider() {
+    initHive();
+  }
+
   // Objeto UserProfile
   late UserProfile _userProfile;
   UserProfile get userProfile => _userProfile;
@@ -38,9 +42,9 @@ class FormsProvider extends ChangeNotifier {
 
     _userProfile = _userProfile.copyWith(result: result);
 
-    // Abrindo o box e salvando o perfil atualizado
-    var box = await Hive.openBox<UserProfile>('userProfileBox');
-    await box.putAt(0, _userProfile);
+    // // Abrindo o box e salvando o perfil atualizado
+    // var box = await Hive.openBox<UserProfile>('userProfileBox');
+    // await box.putAt(0, _userProfile);
 
     notifyListeners();
   }

@@ -14,7 +14,7 @@ class IntroDotsIndicatorWidget extends StatelessWidget {
       height: isActive ? 20 : 8,
       width: 8,
       decoration: BoxDecoration(
-        color: isActive ? const Color(0xffFF6A6A) : const Color(0xffFF6A6A).withOpacity(0.4),
+        color: isActive ? const Color(0xFFFF3333) : const Color(0xffFF6A6A).withOpacity(0.4),
         borderRadius: BorderRadius.circular(10),
       ),
     );

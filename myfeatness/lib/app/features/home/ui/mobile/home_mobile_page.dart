@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/components/home_card_widget.dart';
+import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
 import 'package:myfeatness/app/features/home/provider/home_provider.dart';
 
 class HomeMobilePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFFF3333),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         title: RichText(
           text: const TextSpan(
             text: 'My',
@@ -84,7 +86,9 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                 ),
               ),
               GeneralTextButtonWidget(
-                onTap: () {},
+                onTap: () => Navigator.of(context).pushNamed(
+                  FormsPage.routeName,
+                ),
                 text: 'RECALCULAR',
                 width: 500,
               ),

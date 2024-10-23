@@ -20,12 +20,10 @@ class _FormsPageState extends State<FormsPage> {
     final FormsProvider provider = context.watch<FormsProvider>();
 
     return Scaffold(
-      body: Expanded(
-        child: ResponsiveLayoutBuilder(
-          mobile: FormsMobilePage(provider: provider),
-          tablet: FormsTabletPage(provider: provider),
-          desktop: FormsDesktopPage(provider: provider),
-        ),
+      body: ResponsiveLayoutBuilder(
+        mobile: FormsMobilePage(provider: provider),
+        tablet: FormsTabletPage(provider: provider),
+        desktop: FormsDesktopPage(provider: provider),
       ),
     );
   }

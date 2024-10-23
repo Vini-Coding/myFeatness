@@ -20,12 +20,10 @@ class _HomePageState extends State<HomePage> {
     final HomeProvider provider = context.watch<HomeProvider>();
 
     return Scaffold(
-      body: Expanded(
-        child: ResponsiveLayoutBuilder(
-          mobile: HomeMobilePage(provider: provider),
-          tablet: HomeTabletPage(provider: provider),
-          desktop: HomeDesktopPage(provider: provider),
-        ),
+      body: ResponsiveLayoutBuilder(
+        mobile: HomeMobilePage(provider: provider),
+        tablet: HomeTabletPage(provider: provider),
+        desktop: HomeDesktopPage(provider: provider),
       ),
     );
   }
