@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
-import 'package:myfeatness/app/features/forms/model/user_profile.dart';
 import 'package:myfeatness/app/features/forms/provider/forms_provider.dart';
 import 'package:myfeatness/app/features/forms/ui/components/custom_dropdown_form_field_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/components/custom_text_form_field_widget.dart';
@@ -26,16 +25,13 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
       TextEditingController(text: '0');
   final TextEditingController _ageController = TextEditingController(text: '0');
   final List<String> _sexOptions = ['Masculino', 'Feminino'];
-  String _selectedSex = '';
   final List<String> _levelOptions = [
     'Sedentário',
     'Levemente ativo',
     'Moderadamento ativo',
     'Muito ativo',
   ];
-  String _selectedLevel = '';
   final List<String> _goalOptions = ['Perda de peso', 'Ganho de peso'];
-  String _selectedGoal = '';
 
   @override
   Widget build(BuildContext context) {
@@ -86,17 +82,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   suffixText: 'kg',
                   controller: _weightController,
                   onChanged: (value) {
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateWeight(double.tryParse(value) ?? 0);
+                    }
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -115,17 +103,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   suffixText: 'm',
                   controller: _heightController,
                   onChanged: (value) {
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateHeight(double.tryParse(value) ?? 0);
+                    }
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -144,17 +124,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   suffixText: 'anos',
                   controller: _ageController,
                   onChanged: (value) {
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateAge(int.tryParse(value) ?? 0);
+                    }
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -172,18 +144,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   title: 'INSIRA SEU SEXO',
                   selectionOptions: _sexOptions,
                   onChanged: (value) {
-                    _selectedSex = value!;
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateSex(value);
+                    }
                   },
                   validator: (value) {
                     if (value == null) {
@@ -198,18 +161,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                       'INSIRA A FREQUÊNCIA COM QUE VOCÊ FAZ ATIVIDADE FÍSICA',
                   selectionOptions: _levelOptions,
                   onChanged: (value) {
-                    _selectedLevel = value!;
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateLevel(value);
+                    }
                   },
                   validator: (value) {
                     if (value == null) {
@@ -223,18 +177,9 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   title: 'INSIRA SEU OBJETIVO',
                   selectionOptions: _goalOptions,
                   onChanged: (value) {
-                    _selectedGoal = value!;
-                    widget.provider.updateProfile(
-                      UserProfile(
-                        weight: double.tryParse(_weightController.text) ?? 0,
-                        height: double.tryParse(_heightController.text) ?? 0,
-                        result: 0,
-                        age: int.tryParse(_ageController.text) ?? 0,
-                        sex: _selectedSex,
-                        level: _selectedLevel,
-                        goal: _selectedGoal,
-                      ),
-                    );
+                    if (value != null) {
+                      widget.provider.updateGoal(value);
+                    }
                   },
                   validator: (value) {
                     if (value == null) {
