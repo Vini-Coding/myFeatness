@@ -21,8 +21,8 @@ class AppWidget extends StatelessWidget {
       initialRoute: isFirstEntry ? IntroPage.routeName : HomePage.routeName,
       routes: {
         IntroPage.routeName: (context) => const IntroPage(),
-        FormsPage.routeName: (context) => const FormsPage(),
         HomePage.routeName: (context) => const HomePage(),
+        FormsPage.routeName: (context) => const FormsPage(),
       },
     );
   }

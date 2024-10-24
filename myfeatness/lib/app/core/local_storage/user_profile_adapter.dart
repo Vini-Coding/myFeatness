@@ -20,12 +20,12 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
-    writer.writeDouble(obj.weight);
-    writer.writeDouble(obj.height);
-    writer.writeDouble(obj.result);
-    writer.writeInt(obj.age);
-    writer.writeString(obj.sex);
-    writer.writeString(obj.level);
-    writer.writeString(obj.goal);
+    writer.writeDouble(obj.weight!);
+    writer.writeDouble(obj.height!);
+    writer.writeDouble(obj.result!);
+    writer.writeInt(obj.age!);
+    writer.writeString(obj.sex!);
+    writer.writeString(obj.level!);
+    writer.writeString(obj.goal!);
   }
 }

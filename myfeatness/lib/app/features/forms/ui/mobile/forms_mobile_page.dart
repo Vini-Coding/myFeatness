@@ -33,6 +33,10 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
   ];
   final List<String> _goalOptions = ['Perda de peso', 'Ganho de peso'];
 
+  Future<void> goToHome() async {
+    Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,12 +194,10 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                 ),
                 const SizedBox(height: 20),
                 GeneralTextButtonWidget(
-                  onTap: () {
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      widget.provider.calculateAndSaveProfile();
-                      Navigator.of(context).pushReplacementNamed(
-                        HomePage.routeName,
-                      );
+                      await widget.provider.calculateAndSaveProfile();
+                      goToHome();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

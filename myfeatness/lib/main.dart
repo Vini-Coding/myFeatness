@@ -5,6 +5,7 @@ import 'package:myfeatness/app/core/local_storage/first_entry_adapter.dart';
 import 'package:myfeatness/app/core/local_storage/user_profile_adapter.dart';
 import 'package:myfeatness/app/features/forms/provider/forms_provider.dart';
 import 'package:myfeatness/app/features/home/provider/home_provider.dart';
+import 'package:myfeatness/app/features/home/repository/home_repository.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -18,8 +19,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
         ChangeNotifierProvider<FormsProvider>(create: (_) => FormsProvider()),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (_) => HomeProvider(repository: HomeRepository()),
+        ),
       ],
       child: AppWidget(
         isFirstEntry: isFirstEntry,

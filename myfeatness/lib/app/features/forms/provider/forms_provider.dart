@@ -4,15 +4,19 @@ import 'package:myfeatness/app/features/forms/model/user_profile.dart';
 
 class FormsProvider extends ChangeNotifier {
   // Objeto UserProfile
-  late UserProfile _userProfile;
+  UserProfile _userProfile = UserProfile(
+    weight: null,
+    height: null,
+    result: null,
+    age: null,
+    sex: null,
+    level: null,
+    goal: null,
+  );
   UserProfile get userProfile => _userProfile;
 
-  // Loading
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void setIsLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
+  void init() {
+    
   }
 
   void updateWeight(double weight) {
@@ -46,10 +50,18 @@ class FormsProvider extends ChangeNotifier {
   }
 
   // Método para calcular o resultado e salvar no Hive
-  void calculateAndSaveProfile() async {
-    double weight = _userProfile.weight;
-    double height = _userProfile.height * 100;
-    int age = _userProfile.age;
+  Future<void> calculateAndSaveProfile() async {
+    if (_userProfile.height == null ||
+        _userProfile.weight == null ||
+        _userProfile.age == null ||
+        _userProfile.sex == null ||
+        _userProfile.level == null ||
+        _userProfile.goal == null) {
+      return;
+    }
+    double weight = _userProfile.weight!;
+    double height = _userProfile.height! * 100;
+    int age = _userProfile.age!;
     double result = 0;
 
     if (_userProfile.sex == 'Masculino') {
@@ -88,7 +100,7 @@ class FormsProvider extends ChangeNotifier {
 
     // Salvando o perfil atualizado no Hive
     var box = await Hive.openBox<UserProfile>('userProfileBox');
-    await box.putAt(0, _userProfile);
+    await box.put('vini', _userProfile);
     await box.close(); // Fechar o box após o uso
     notifyListeners();
   }

@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/components/home_card_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
+import 'package:myfeatness/app/features/home/model/article.dart';
 import 'package:myfeatness/app/features/home/provider/home_provider.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeMobilePage extends StatefulWidget {
   const HomeMobilePage({super.key, required this.provider});
@@ -13,6 +17,12 @@ class HomeMobilePage extends StatefulWidget {
 }
 
 class _HomeMobilePageState extends State<HomeMobilePage> {
+  @override
+  void initState() {
+    widget.provider.loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +53,16 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
           textAlign: TextAlign.center,
         ),
       ),
-      body: SingleChildScrollView(
+      body: Visibility(
+        visible: !widget.provider.isLoading,
+        replacement: Center(
+          child: Lottie.asset(
+            'assets/lottie/loading.json', // Caminho da animação
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -61,10 +80,13 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Center(
+              Center(
                 child: Text(
-                  '30948 kcal',
-                  style: TextStyle(
+                  '${(widget.provider.userProfile?.result ?? 0).toStringAsFixed(2).replaceAll(
+                        '.',
+                        ',',
+                      )} kcal',
+                  style: const TextStyle(
                     fontFamily: 'Staatliches',
                     color: Color(0xFFFF3333),
                     fontSize: 85,
@@ -75,7 +97,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  'Com base no cálculo de lorem ipsum dolor site amet Com base no cálculo de lorem ipsum dolor site amet, Com base no cálculo de lorem ipsum dolor site amet Com base no cálculo de lorem ipsum dolor site ame.',
+                  'Com base na TMB sabemos que você deve consumir esse número de calorias. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Color(0xFF2E314D),
@@ -123,25 +145,22 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
-              HomeCardWidget(
-                title: 'ARTIGO 1 - TÍTULO DO ARTIGO',
-                description: 'Descrição do artigo',
-                onTap: () {},
+              Expanded(
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    Article artigo = widget.provider.articles[index];
+                    return HomeCardWidget(
+                      title: artigo.title,
+                      description: artigo.content,
+                      onTap: () {},
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 15);
+                  },
+                  itemCount: widget.provider.articles.length,
+                ),
               ),
-              const SizedBox(height: 15),
-              HomeCardWidget(
-                title: 'ARTIGO 1 - TÍTULO DO ARTIGO',
-                description: 'Descrição do artigo',
-                onTap: () {},
-              ),
-              const SizedBox(height: 15),
-              HomeCardWidget(
-                title: 'ARTIGO 1 - TÍTULO DO ARTIGO',
-                description: 'Descrição do artigo',
-                onTap: () {},
-              ),
-              const SizedBox(height: 15),
             ],
           ),
         ),

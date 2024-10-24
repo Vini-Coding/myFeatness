@@ -41,7 +41,7 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
           ),
           TextFormField(
             controller: widget.controller,
-            inputFormatters: [],
+            inputFormatters: const [],
             cursorColor: const Color(0xFFFF3333),
             style: const TextStyle(
               fontFamily: 'Montserrat',
