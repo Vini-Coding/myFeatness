@@ -51,6 +51,7 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
             ),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
+              hintText: '0',
               suffix: Text(
                 widget.suffixText,
                 style: const TextStyle(
@@ -72,7 +73,6 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
               hintStyle: const TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 14,
-                fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFFFF3333),
               ),

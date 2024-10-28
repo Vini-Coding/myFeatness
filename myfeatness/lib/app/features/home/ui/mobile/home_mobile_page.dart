@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/components/home_card_widget.dart';
 import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
@@ -31,13 +31,14 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
         backgroundColor: const Color(0xFFFF3333),
         centerTitle: true,
         automaticallyImplyLeading: false,
+        toolbarHeight: 70,
         title: RichText(
           text: const TextSpan(
             text: 'My',
             style: TextStyle(
               fontFamily: 'Staatliches',
               color: Color(0xFF2E314D),
-              fontSize: 25,
+              fontSize: 30,
             ),
             children: [
               TextSpan(
@@ -45,7 +46,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                 style: TextStyle(
                   fontFamily: 'Staatliches',
                   color: Color(0xFFFFFFFF),
-                  fontSize: 25,
+                  fontSize: 30,
                 ),
               ),
             ],
@@ -63,103 +64,127 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Center(
+              Center(
                 child: Text(
-                  'Olá, você tem que ingerir',
-                  style: TextStyle(
+                  widget.provider.userProfile?.result != null
+                      ? 'Olá, você tem que ingerir:'
+                      : 'Descubra sua TMB aqui',
+                  style: const TextStyle(
                     fontFamily: 'Montserrat',
                     color: Color(0xFF2E314D),
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
               ),
-              Center(
-                child: Text(
-                  '${(widget.provider.userProfile?.result ?? 0).toStringAsFixed(2).replaceAll(
-                        '.',
-                        ',',
-                      )} kcal',
-                  style: const TextStyle(
-                    fontFamily: 'Staatliches',
-                    color: Color(0xFFFF3333),
-                    fontSize: 85,
-                    height: 1,
+              Visibility(
+                visible: widget.provider.userProfile?.result != null,
+                child: Center(
+                  child: Text(
+                    '${(widget.provider.userProfile?.result ?? 0).toStringAsFixed(2).replaceAll(
+                          '.',
+                          ',',
+                        )} kcal',
+                    style: const TextStyle(
+                      fontFamily: 'Staatliches',
+                      color: Color(0xFFFF3333),
+                      fontSize: 85,
+                      height: 1,
+                    ),
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  'Com base na TMB sabemos que você deve consumir esse número de calorias. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Color(0xFF2E314D),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  textAlign: TextAlign.justify,
+              const SizedBox(height: 10),
+              const Text(
+                'Com base na TMB (Taxa Metabólica Basal) sabemos que você deve consumir esse número de calorias. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  color: Color(0xFF2E314D),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
                 ),
+                textAlign: TextAlign.justify,
               ),
               GeneralTextButtonWidget(
                 onTap: () => Navigator.of(context).pushNamed(
                   FormsPage.routeName,
                 ),
-                text: 'RECALCULAR',
-                width: 500,
+                text: widget.provider.userProfile == null
+                    ? 'CALCULAR'
+                    : 'RECALCULAR',
+                width: double.maxFinite,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Center(
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'Confira',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Montserrat',
                         color: Color(0xFF2E314D),
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                       ),
                       children: [
-                        TextSpan(
+                        const TextSpan(
                           text: ' artigos',
                           style: TextStyle(
                             color: Color(0xFFFF3333),
                           ),
                         ),
-                        TextSpan(
-                          text: ' sobre logo abaixo:',
+                        const TextSpan(
+                          text: ' sobre ',
+                          style: TextStyle(
+                            color: Color(0xFF2E314D),
+                          ),
+                        ),
+                        if (widget.provider.userProfile?.goal != null)
+                          TextSpan(
+                            text:
+                                "${widget.provider.userProfile!.goal!.toLowerCase()} ",
+                            style: const TextStyle(
+                              color: Color(0xFFFF3333),
+                            ),
+                          ),
+                        const TextSpan(
+                          text: 'logo abaixo:',
                           style: TextStyle(
                             color: Color(0xFF2E314D),
                           ),
                         ),
                       ],
                     ),
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    Article artigo = widget.provider.articles[index];
-                    return HomeCardWidget(
-                      title: artigo.title,
-                      description: artigo.content,
-                      onTap: () {},
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 15);
-                  },
-                  itemCount: widget.provider.articles.length,
-                ),
+              const SizedBox(height: 10),
+              ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  Article artigo = widget.provider.articles[index];
+                  return HomeCardWidget(
+                    title: artigo.title,
+                    author: artigo.author,
+                    imageUrl: artigo.imageUrl,
+                    publishDate:
+                        DateFormat('dd/MM/yyyy').format(artigo.publishedDate),
+                    content: artigo.content,
+                    tags: artigo.tags,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 15);
+                },
+                itemCount: widget.provider.articles.length,
               ),
             ],
           ),

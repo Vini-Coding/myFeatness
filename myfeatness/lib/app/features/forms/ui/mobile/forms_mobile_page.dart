@@ -19,11 +19,9 @@ class FormsMobilePage extends StatefulWidget {
 
 class _FormsMobilePageState extends State<FormsMobilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _weightController =
-      TextEditingController(text: '0');
-  final TextEditingController _heightController =
-      TextEditingController(text: '0');
-  final TextEditingController _ageController = TextEditingController(text: '0');
+  final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _heightController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   final List<String> _sexOptions = ['Masculino', 'Feminino'];
   final List<String> _levelOptions = [
     'Sedentário',
@@ -42,6 +40,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
       appBar: AppBar(
+        toolbarHeight: 70,
         backgroundColor: const Color(0xFFFF3333),
         centerTitle: true,
         title: RichText(

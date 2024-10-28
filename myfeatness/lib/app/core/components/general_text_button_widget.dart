@@ -6,10 +6,12 @@ class GeneralTextButtonWidget extends StatelessWidget {
     required this.onTap,
     required this.text,
     this.width,
+    this.padding,
   });
   final void Function() onTap;
   final String text;
   final double? width;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class GeneralTextButtonWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        padding: padding ?? const EdgeInsets.symmetric(vertical: 5),
         width: width ?? 0,
         decoration: BoxDecoration(
           color: const Color(0xFFFF3333),

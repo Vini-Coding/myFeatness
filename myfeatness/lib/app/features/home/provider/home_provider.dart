@@ -48,8 +48,23 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> _fetchArticles(String url) async {
+    void sortArticles() {
+      if (_userProfile == null) {
+        return;
+      } else if (_userProfile!.goal == 'Perda de peso') {
+        _articles = _articles
+            .where((article) => article.goal == 'weight_loss')
+            .toList();
+      } else {
+        _articles = _articles
+            .where((article) => article.goal == 'weight_gain')
+            .toList();
+      }
+    }
+
     try {
       _articles = await repository.getData(url);
+      sortArticles();
     } catch (e) {
       debugPrint('Erro ao buscar artigos: $e');
     }
