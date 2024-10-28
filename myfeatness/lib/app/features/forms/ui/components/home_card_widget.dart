@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
 
-class HomeCardWidget extends StatelessWidget {
+class HomeCardWidget extends StatefulWidget {
   const HomeCardWidget({
     super.key,
     required this.title,
@@ -21,8 +22,13 @@ class HomeCardWidget extends StatelessWidget {
   final List<String> tags;
 
   @override
+  State<HomeCardWidget> createState() => _HomeCardWidgetState();
+}
+
+class _HomeCardWidgetState extends State<HomeCardWidget> {
+  @override
   Widget build(BuildContext context) {
-    List<String> captalizedTags = tags.map((tag) {
+    List<String> captalizedTags = widget.tags.map((tag) {
       return tag[0].toUpperCase() + tag.substring(1);
     }).toList();
 
@@ -37,7 +43,7 @@ class HomeCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    widget.title,
                     style: const TextStyle(
                       fontFamily: 'Staatliches',
                       fontSize: 35,
@@ -47,44 +53,40 @@ class HomeCardWidget extends StatelessWidget {
                     maxLines: 2,
                   ),
                   const SizedBox(height: 5),
-                  Image.network(
-                    imageUrl,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Center(
-                          child: Lottie.asset(
-                        'assets/lottie/loading.json', // Caminho da animação
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ));
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.circleExclamation,
-                            color: Colors.red,
-                            size: 15,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'Erro ao carregar imagem',
-                            style: TextStyle(
+                  CachedNetworkImage(
+                    imageUrl: widget.imageUrl,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                            child: Lottie.asset(
+                      'assets/lottie/loading.json',
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    )),
+                    errorWidget: (context, url, error) => Row(
+                      children: [
+                        const FaIcon(
+                          FontAwesomeIcons.circleExclamation,
+                          color: Colors.red,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            'Erro ao carregar imagem: ${error.toString()}',
+                            style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 12,
                               color: Colors.red,
                             ),
                           ),
-                        ],
-                      );
-                    },
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Publicado em $publishDate por $author',
+                    'Publicado em ${widget.publishDate} por ${widget.author}',
                     style: const TextStyle(
                       fontFamily: 'Montserrat',
                       color: Color(0xFFFF3333),
@@ -98,7 +100,7 @@ class HomeCardWidget extends StatelessWidget {
                   Expanded(
                     child: SingleChildScrollView(
                       child: Text(
-                        content,
+                        widget.content,
                         style: const TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF2E314D),
@@ -129,7 +131,9 @@ class HomeCardWidget extends StatelessWidget {
               width: double.maxFinite,
               decoration: BoxDecoration(
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/card.jpg'),
+                  image: AssetImage(
+                    'assets/images/card.jpg',
+                  ),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -140,7 +144,7 @@ class HomeCardWidget extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               width: double.maxFinite,
               decoration: BoxDecoration(
-                color: const Color(0xFF2E314D).withOpacity(0.25),
+                color: const Color(0xFF2E314D).withOpacity(0.5),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -149,7 +153,7 @@ class HomeCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    widget.title,
                     style: const TextStyle(
                       fontFamily: 'Staatliches',
                       fontSize: 30,
@@ -161,7 +165,7 @@ class HomeCardWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 2, bottom: 8),
                     child: Text(
-                      'Publicado em $publishDate por $author',
+                      'Publicado em ${widget.publishDate} por ${widget.author}',
                       style: const TextStyle(
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w500,
