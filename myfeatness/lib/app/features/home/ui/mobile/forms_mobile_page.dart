@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
-import 'package:myfeatness/app/features/forms/provider/forms_provider.dart';
-import 'package:myfeatness/app/features/forms/ui/components/custom_dropdown_form_field_widget.dart';
-import 'package:myfeatness/app/features/forms/ui/components/custom_text_form_field_widget.dart';
+import 'package:myfeatness/app/features/home/providers/forms_provider.dart';
+import 'package:myfeatness/app/features/home/ui/components/custom_dropdown_form_field_widget.dart';
+import 'package:myfeatness/app/features/home/ui/components/custom_text_form_field_widget.dart';
 import 'package:myfeatness/app/features/home/ui/home_page.dart';
+import 'package:provider/provider.dart';
 
 class FormsMobilePage extends StatefulWidget {
+  static String routeName = '/forms';
+
   const FormsMobilePage({
     super.key,
-    required this.provider,
   });
-  final FormsProvider provider;
 
   @override
   State<FormsMobilePage> createState() => _FormsMobilePageState();
@@ -37,6 +38,8 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final FormsProvider provider = context.watch<FormsProvider>();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
       appBar: AppBar(
@@ -86,7 +89,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   controller: _weightController,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateWeight(double.tryParse(value) ?? 0);
+                      provider.updateWeight(double.tryParse(value) ?? 0);
                     }
                   },
                   validator: (value) {
@@ -107,7 +110,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   controller: _heightController,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateHeight(double.tryParse(value) ?? 0);
+                      provider.updateHeight(double.tryParse(value) ?? 0);
                     }
                   },
                   validator: (value) {
@@ -128,7 +131,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   controller: _ageController,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateAge(int.tryParse(value) ?? 0);
+                      provider.updateAge(int.tryParse(value) ?? 0);
                     }
                   },
                   validator: (value) {
@@ -148,7 +151,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   selectionOptions: _sexOptions,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateSex(value);
+                      provider.updateSex(value);
                     }
                   },
                   validator: (value) {
@@ -165,7 +168,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   selectionOptions: _levelOptions,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateLevel(value);
+                      provider.updateLevel(value);
                     }
                   },
                   validator: (value) {
@@ -181,7 +184,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                   selectionOptions: _goalOptions,
                   onChanged: (value) {
                     if (value != null) {
-                      widget.provider.updateGoal(value);
+                      provider.updateGoal(value);
                     }
                   },
                   validator: (value) {
@@ -195,7 +198,7 @@ class _FormsMobilePageState extends State<FormsMobilePage> {
                 GeneralTextButtonWidget(
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      await widget.provider.calculateAndSaveProfile();
+                      await provider.calculateAndSaveProfile();
                       goToHome();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

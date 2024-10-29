@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfeatness/app/core/components/responsive_layout_builder.dart';
-import 'package:myfeatness/app/features/home/provider/home_provider.dart';
+import 'package:myfeatness/app/features/home/providers/home_provider.dart';
 import 'package:myfeatness/app/features/home/ui/desktop/home_desktop_page.dart';
 import 'package:myfeatness/app/features/home/ui/mobile/home_mobile_page.dart';
 import 'package:myfeatness/app/features/home/ui/tablet/home_tablet_page.dart';

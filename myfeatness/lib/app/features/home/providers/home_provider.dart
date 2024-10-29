@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import 'package:myfeatness/app/features/forms/model/user_profile.dart';
-import 'package:myfeatness/app/features/home/model/article.dart';
+import 'package:myfeatness/app/features/home/models/user_profile.dart';
+import 'package:myfeatness/app/features/home/models/article.dart';
 import 'package:myfeatness/app/features/home/repository/home_repository.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -26,6 +26,7 @@ class HomeProvider extends ChangeNotifier {
   List<Article> _articles = [];
   List<Article> get articles => _articles;
 
+  // Carregando os dados
   Future<void> loadData() async {
     setLoading(true);
     await _getUserProfile();
@@ -47,6 +48,7 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
+  // Método para obeter os artigos
   Future<void> _fetchArticles(String url) async {
     void sortArticles() {
       if (_userProfile == null) {
@@ -69,4 +71,5 @@ class HomeProvider extends ChangeNotifier {
       debugPrint('Erro ao buscar artigos: $e');
     }
   }
+  
 }

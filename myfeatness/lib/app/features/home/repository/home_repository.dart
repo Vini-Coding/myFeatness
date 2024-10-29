@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:myfeatness/app/features/home/model/article.dart';
+import 'package:myfeatness/app/features/home/models/article.dart';
 
 class HomeRepository {
   Future<List<Article>> getData(String link) async {

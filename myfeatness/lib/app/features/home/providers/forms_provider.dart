@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:myfeatness/app/features/forms/model/user_profile.dart';
+import 'package:myfeatness/app/features/home/models/user_profile.dart';
 
 class FormsProvider extends ChangeNotifier {
   // Objeto UserProfile
@@ -15,9 +15,6 @@ class FormsProvider extends ChangeNotifier {
   );
   UserProfile get userProfile => _userProfile;
 
-  void init() {
-    
-  }
 
   void updateWeight(double weight) {
     _userProfile = _userProfile.copyWith(weight: weight);

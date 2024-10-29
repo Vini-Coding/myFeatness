@@ -13,6 +13,7 @@ class HomeCardWidget extends StatefulWidget {
     required this.imageUrl,
     required this.content,
     required this.tags,
+    required this.isMobile,
   });
   final String title;
   final String author;
@@ -20,6 +21,7 @@ class HomeCardWidget extends StatefulWidget {
   final String imageUrl;
   final String content;
   final List<String> tags;
+  final bool isMobile;
 
   @override
   State<HomeCardWidget> createState() => _HomeCardWidgetState();
@@ -32,95 +34,107 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
       return tag[0].toUpperCase() + tag.substring(1);
     }).toList();
 
+    Container buildContent() {
+      return Container(
+        color: const Color(0xFFF3F3F3),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.title,
+              style: const TextStyle(
+                fontFamily: 'Staatliches',
+                fontSize: 35,
+                color: Color(0xFF2E314D),
+                height: 1,
+              ),
+              maxLines: 2,
+            ),
+            const SizedBox(height: 5),
+            CachedNetworkImage(
+              imageUrl: widget.imageUrl,
+              height: 200,
+              width: double.maxFinite,
+              fit: BoxFit.cover,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: Lottie.asset(
+                'assets/lottie/loading.json',
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              )),
+              errorWidget: (context, url, error) => Row(
+                children: [
+                  const FaIcon(
+                    FontAwesomeIcons.circleExclamation,
+                    color: Colors.red,
+                    size: 15,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Erro ao carregar imagem: ${error.toString()}',
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 12,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'Publicado em ${widget.publishDate} por ${widget.author}',
+              style: const TextStyle(
+                fontFamily: 'Montserrat',
+                color: Color(0xFFFF3333),
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w400,
+              ),
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Text(
+                  widget.content,
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Color(0xFF2E314D),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            GeneralTextButtonWidget(
+              onTap: () => Navigator.pop(context),
+              text: 'FECHAR',
+              width: double.maxFinite,
+            ),
+          ],
+        ),
+      );
+    }
+
     return InkWell(
       onTap: () {
         showBottomSheet(
           context: context,
-          builder: (BuildContext context) {
-            return Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: const TextStyle(
-                      fontFamily: 'Staatliches',
-                      fontSize: 35,
-                      color: Color(0xFF2E314D),
-                      height: 1,
-                    ),
-                    maxLines: 2,
-                  ),
-                  const SizedBox(height: 5),
-                  CachedNetworkImage(
-                    imageUrl: widget.imageUrl,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                            child: Lottie.asset(
-                      'assets/lottie/loading.json',
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    )),
-                    errorWidget: (context, url, error) => Row(
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.circleExclamation,
-                          color: Colors.red,
-                          size: 15,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            'Erro ao carregar imagem: ${error.toString()}',
-                            style: const TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 12,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Publicado em ${widget.publishDate} por ${widget.author}',
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Color(0xFFFF3333),
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Text(
-                        widget.content,
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Color(0xFF2E314D),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  GeneralTextButtonWidget(
-                    onTap: () => Navigator.pop(context),
-                    text: 'FECHAR',
-                    width: double.maxFinite,
-                  ),
-                ],
-              ),
-            );
-          },
+          backgroundColor: const Color(0xFFF3F3F3),
+          enableDrag: false,
+          constraints: const BoxConstraints(
+            maxHeight: double.maxFinite,
+            maxWidth: double.maxFinite,
+          ),
+          builder: (BuildContext context) => buildContent(),
         );
       },
       child: SizedBox(
@@ -173,7 +187,7 @@ class _HomeCardWidgetState extends State<HomeCardWidget> {
                         fontSize: 15,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
+                      maxLines: 1,
                     ),
                   ),
                   SizedBox(

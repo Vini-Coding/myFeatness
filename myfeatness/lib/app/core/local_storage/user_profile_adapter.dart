@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:myfeatness/app/features/forms/model/user_profile.dart';
+import 'package:myfeatness/app/features/home/models/user_profile.dart';
 
 class UserProfileAdapter extends TypeAdapter<UserProfile> {
   @override

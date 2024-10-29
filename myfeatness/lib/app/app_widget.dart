@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
 import 'package:myfeatness/app/features/home/ui/home_page.dart';
+import 'package:myfeatness/app/features/home/ui/mobile/forms_mobile_page.dart';
 import 'package:myfeatness/app/features/intro/ui/intro_page.dart';
 import 'package:flutter/foundation.dart';
 
@@ -28,7 +28,7 @@ class AppWidget extends StatelessWidget {
       routes: {
         IntroPage.routeName: (context) => const IntroPage(),
         HomePage.routeName: (context) => const HomePage(),
-        FormsPage.routeName: (context) => const FormsPage(),
+        FormsMobilePage.routeName: (context) => const FormsMobilePage(),
       },
     );
   }

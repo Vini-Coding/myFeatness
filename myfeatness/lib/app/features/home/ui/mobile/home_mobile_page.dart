@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:myfeatness/app/core/components/general_text_button_widget.dart';
-import 'package:myfeatness/app/features/forms/ui/components/home_card_widget.dart';
-import 'package:myfeatness/app/features/forms/ui/forms_page.dart';
-import 'package:myfeatness/app/features/home/model/article.dart';
-import 'package:myfeatness/app/features/home/provider/home_provider.dart';
+import 'package:myfeatness/app/features/home/ui/components/home_card_widget.dart';
+import 'package:myfeatness/app/features/home/models/article.dart';
+import 'package:myfeatness/app/features/home/providers/home_provider.dart';
 import 'package:lottie/lottie.dart';
+import 'package:myfeatness/app/features/home/ui/mobile/forms_mobile_page.dart';
 
 class HomeMobilePage extends StatefulWidget {
   const HomeMobilePage({super.key, required this.provider});
@@ -113,7 +112,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
               ),
               GeneralTextButtonWidget(
                 onTap: () => Navigator.of(context).pushNamed(
-                  FormsPage.routeName,
+                  FormsMobilePage.routeName,
                 ),
                 text: widget.provider.userProfile == null
                     ? 'CALCULAR'
@@ -179,6 +178,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                         DateFormat('dd/MM/yyyy').format(artigo.publishedDate),
                     content: artigo.content,
                     tags: artigo.tags,
+                    isMobile: true,
                   );
                 },
                 separatorBuilder: (context, index) {

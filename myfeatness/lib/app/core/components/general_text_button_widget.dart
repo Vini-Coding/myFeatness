@@ -17,6 +17,9 @@ class GeneralTextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),
         padding: padding ?? const EdgeInsets.symmetric(vertical: 5),
