@@ -24,12 +24,13 @@ dependencies:
   url_launcher: ^6.3.1
   intl: ^0.19.0
   cached_network_image: ^3.4.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   hive_generator: ^1.1.0
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.14.1
   flutter_lints: ^3.0.0
 
 # The following section is specific to Flutter packages.
@@ -41,7 +42,7 @@ flutter:
     - assets/vectors/
     - assets/lottie/
     - assets/images/
-
+    - assets/icon/
   # To add custom fonts to your application, add a fonts section here,
   # example:
   fonts:
@@ -58,3 +59,15 @@ flutter:
     - family: Staatliches
       fonts:
         - asset: assets/fonts/Staatliches-Regular.ttf
+
+flutter_native_splash:
+  color: "#F3F3F3"
+  image: assets/icon/splash.png
+  branding: assets/icon/branding.png
+  android: true
+  ios: true
+  web: true
+  android_12:
+    image: assets/icon/splash.png
+    branding: assets/icon/branding.png
+    icon_background_color: "#F3F3F3"

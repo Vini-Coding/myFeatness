@@ -81,9 +81,6 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
           textAlign: TextAlign.center,
         ),
       ),
-      drawer: Drawer(
-        
-      ),
       body: Visibility(
         visible: !widget.provider.isLoading,
         replacement: Center(
