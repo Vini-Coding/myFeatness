@@ -16,7 +16,6 @@ O MyFeatness é a sua feat para o mundo fitness. Com ele você descobre quantas 
 - Listagem de artigos via API.
 - Armazenamento local de seu resultado.
 - Responsividade para celular, tablet, desktop, web, etc.
-Confira os vídeos de demonstração do aplicativo aqui: [VER VÍDEOS DE DEMONSTRAÇÃO](https://drive.google.com/drive/folders/181KmLtok-vApkKUT_3qtXYIGJYmDrFEq?usp=sharing)
 
 ## Como utilizar
 - Você pode utilizar o aplicativo baixando o apk: [Baixar APK](https://drive.google.com/drive/folders/17zPINbk5m5cNdKBvhviuVDtNFjAtp-4r)
@@ -32,6 +31,8 @@ git clone https://github.com/Vini-Coding/myFeatness
 flutter run lib/main.dart
 ```
 
+Confira os vídeos de demonstração do aplicativo aqui: [VER VÍDEOS DE DEMONSTRAÇÃO](https://drive.google.com/drive/folders/181KmLtok-vApkKUT_3qtXYIGJYmDrFEq?usp=sharing)
+
 ## Design da UI
 No início do desenvolvimento como de costume, elaborei o design da interface utilizando o Figma para manter a coerência visual entre as telas 
 ![image](https://github.com/user-attachments/assets/aeee9087-34e2-4cd0-a0c6-b9ed97d23ac1)
@@ -46,16 +47,18 @@ No início do desenvolvimento como de costume, elaborei o design da interface ut
 - Utilizei o package 'introduction_screens' para as telas de onboarding.
 ### Na estrutura de arquivos
 ![image](https://github.com/user-attachments/assets/17c0cebd-d319-425b-ab79-d43d61ba636b)
+
 Dividi o aplicativo entre o core e as features, com o core mantendo arquivos, utilitários e componentes mais gerais. De feature principal temos a Home que possui:
 - Provider para formulário e salvamento de dados, provider para requisição e leitura de dados.
 - UI responsiva com uma page para mobile, tablet e desktop.
 - Arquivos de modelo para usuário e artigo.
 - Repository para requisição da lista de artigos.
 ### Regra de negócios
+**Funcionamento do aplicativo**
 - Desenvolvi um modelo "UserProfile()" que armazena informações do usuário como peso, altura, idade, sexo, frequência, objetivo e resultado da TMB. Na medida que o usuário vai preenchendo o formulário, um objeto vai sendo preenchido no provider de formulário, ao clicar em 'CALCULAR', o cálculo é feito e o resultado armazenado no objeto, que é salvo em um box do hive em seguida. 
 - Então, o provider de leitura, requisita o objeto salvo no Hive para exibir, assim como também requisita a lista de artigos. 
-- O cálculo da TMB é feito da seguinte forma:
 **Cálculo de Calorias Diárias:**
+1. TMB
 - TMB (homens) = 88,362 + (13,397 x peso em kg) + (4,799 x altura em cm) - (5,677 x idade
 em anos).
 - TMB (mulheres) = 447,593 + (9,247 x peso em kg) + (3,098 x altura em cm) - (4,330 x
