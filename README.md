@@ -85,5 +85,5 @@ Com base no objetivo do usuário, o cálculo das calorias diárias é ajustado:
 ## Links importantes
 -  [Clique aqui para baixar o APK](https://drive.google.com/drive/folders/17zPINbk5m5cNdKBvhviuVDtNFjAtp-4r)
 -  [Clique aqui para acessar o website](https://vini-coding.github.io/myfeatness-web/)
--  [Clique aqui para acessar o website](https://drive.google.com/drive/folders/181KmLtok-vApkKUT_3qtXYIGJYmDrFEq?usp=sharing)
+-  [Clique aqui para assistir os vídeos de demonstração](https://drive.google.com/drive/folders/181KmLtok-vApkKUT_3qtXYIGJYmDrFEq?usp=sharing)
 
