@@ -118,11 +118,16 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
                               }
                             },
                             validator: (value) {
+                              double? numberValue =
+                                  double.tryParse(value ?? '');
                               if (value == null || value.isEmpty) {
                                 return 'Por favor, insira seu peso.';
-                              } else if (double.tryParse(value) == null ||
-                                  double.tryParse(value)! < 2) {
-                                return 'Por favor, insira um valor válido como 70.5';
+                              } else if (numberValue == null) {
+                                return 'Por favor, insira um valor numérico válido como 70.5';
+                              } else if (numberValue <= 2) {
+                                return 'Por favor, insira um valor maior que 2';
+                              } else if (numberValue > 500) {
+                                return 'Por favor, insira um valor válido em kg';
                               } else {
                                 return null;
                               }
@@ -140,11 +145,14 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
                               }
                             },
                             validator: (value) {
+                              double? numberValue =
+                                  double.tryParse(value ?? '');
                               if (value == null || value.isEmpty) {
                                 return 'Por favor, insira sua altura.';
-                              } else if (double.tryParse(value) == null ||
-                                  double.tryParse(value)! == 0) {
+                              } else if (numberValue == null) {
                                 return 'Por favor, insira um valor válido como 1.75';
+                              } else if (numberValue <= 0 || numberValue > 3) {
+                                return 'Por favor, insira uma altura válida em metros!';
                               } else {
                                 return null;
                               }
@@ -162,11 +170,15 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
                               }
                             },
                             validator: (value) {
+                              int? numberValue = int.tryParse(value ?? '');
                               if (value == null || value.isEmpty) {
                                 return 'Por favor, insira sua idade.';
-                              } else if (int.tryParse(value) == null ||
-                                  int.tryParse(value)! == 0) {
+                              } else if (numberValue == null) {
                                 return 'Por favor, insira um valor inteiro válido como 20';
+                              } else if (numberValue <= 1) {
+                                return 'Por favor, insira uma idade maior que 1';
+                              } else if (numberValue > 125) {
+                                return 'Por favor, insira uma idade válida';
                               } else {
                                 return null;
                               }
@@ -288,7 +300,7 @@ class _HomeDesktopPageState extends State<HomeDesktopPage> {
                       ),
                       const SizedBox(height: 10),
                       const Text(
-                        'Com base na TMB (Taxa Metabólica Basal) sabemos que você deve consumir esse número de calorias. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
+                        'Com base na TMB (Taxa Metabólica Basal) sabemos que você deve consumir esse número de calorias por dia. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF2E314D),

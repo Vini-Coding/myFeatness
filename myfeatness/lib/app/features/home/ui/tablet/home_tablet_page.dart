@@ -104,7 +104,7 @@ class _HomeTabletPageState extends State<HomeTabletPage> {
               ),
               const SizedBox(height: 10),
               const Text(
-                'Com base na TMB (Taxa Metabólica Basal) sabemos que você deve consumir esse número de calorias. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
+                'Com base na TMB (Taxa Metabólica Basal) sabemos que você deve consumir esse número de calorias por dia. Existem diversas fórmulas para calcular a TMB, mas uma das mais usadas é a equação de Harris-Benedict, que leva em conta o sexo, a idade, o peso e a altura da pessoa.',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Color(0xFF2E314D),
